@@ -1,0 +1,72 @@
+[
+    {
+        "type":  "greenhouse",
+        "board":  "stripe",
+        "company":  "Stripe"
+    },
+    {
+        "type":  "smartrecruiters",
+        "board":  "AECOM",
+        "company":  "AECOM"
+    },
+    {
+        "type":  "lever",
+        "board":  "paytm",
+        "company":  "Paytm"
+    },
+    {
+        "type":  "smartrecruiters",
+        "board":  "Visa",
+        "company":  "Visa"
+    },
+    {
+        "type":  "greenhouse",
+        "board":  "affirm",
+        "company":  "Affirm"
+    },
+    {
+        "type":  "greenhouse",
+        "board":  "clear",
+        "company":  "CLEAR"
+    },
+    {
+        "type":  "greenhouse",
+        "board":  "coinbase",
+        "company":  "Coinbase"
+    },
+    {
+        "type":  "greenhouse",
+        "board":  "okta",
+        "company":  "Okta"
+    },
+    {
+        "type":  "greenhouse",
+        "board":  "tide",
+        "company":  "Tide"
+    },
+    {
+        "type":  "smartrecruiters",
+        "board":  "BoschGroup",
+        "company":  "Bosch"
+    },
+    {
+        "type":  "smartrecruiters",
+        "board":  "WNSGlobalServices",
+        "company":  "WNS"
+    },
+    {
+        "type":  "smartrecruiters",
+        "board":  "NECSWS",
+        "company":  "NEC Software Solutions"
+    },
+    {
+        "type":  "ashby",
+        "board":  "deel",
+        "company":  "Deel"
+    },
+    {
+        "type":  "ashby",
+        "board":  "openai",
+        "company":  "OpenAI"
+    }
+]

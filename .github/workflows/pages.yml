@@ -1,0 +1,52 @@
+name: Refresh vacancies and deploy Pages
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - uses: actions/configure-pages@v5
+      - uses: actions/cache/restore@v4
+        with:
+          path: site/vacancies.js
+          key: vacancies-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: vacancies-
+      - name: Refresh public employer feeds
+        run: python jobs.py refresh
+      - uses: actions/cache/save@v4
+        with:
+          path: site/vacancies.js
+          key: vacancies-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Stage public files
+        run: |
+          mkdir public
+          cp site/index.html site/app.js site/styles.css site/vacancies.js public/
+          printf "window.workbookJobs = [];\n" > public/workbook.js
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: public
+      - uses: actions/deploy-pages@v4
+        id: deployment

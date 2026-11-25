@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CA Job Dashboard</title>
+<link rel="stylesheet" href="styles.css">
+<script defer src="workbook.js"></script>
+<script defer src="vacancies.js"></script>
+<script defer src="app.js"></script>
+</head>
+<body>
+<header class="top"><div class="wrap top-inner"><div class="brand"><span class="mark">CA</span> CA Job Dashboard</div><a href="#sources">Sources &amp; refresh</a></div></header>
+<main class="wrap">
+  <section class="intro"><div><p class="eyebrow">CHARTERED ACCOUNTANCY · INDIA</p><h1>Your job search</h1><p>Find roles that explicitly require a Chartered Accountant qualification.</p></div><button id="open-add" class="primary" type="button">+ Add vacancy</button></section>
+  <section id="summary" aria-labelledby="summary-title">
+  <h2 id="summary-title">Tracker summary</h2>
+  <div class="metrics" aria-label="Job totals">
+    <div><span>Tracked roles</span><strong id="total">0</strong></div>
+    <div><span>CA-required vacancies</span><strong id="live">0</strong></div>
+    <div><span>Applied or beyond</span><strong id="progress">0</strong></div>
+    <div><span>Top fit</span><strong id="fit-count">0</strong></div>
+    <div><span>Resume drafts ready</span><strong id="resume-count">0</strong></div>
+  </div>
+  <div class="summary-grid">
+    <section class="panel summary"><h3>Jobs by location</h3><ul id="location-summary"></ul></section>
+    <section class="panel summary"><h3>Application stages</h3><ul id="stage-summary"></ul></section>
+    <section class="panel summary"><h3>Freshness</h3><ul id="freshness-summary"></ul></section>
+  </div>
+  </section>
+  <section class="panel" aria-labelledby="jobs-title">
+    <div class="section-heading"><h2 id="jobs-title">Vacancies</h2><span id="count" role="status"></span></div>
+    <div class="filters">
+      <label>Qualification<select id="qualification"><option value="required">CA required</option><option value="">All tracker records</option></select></label>
+      <label>Search<input id="search" type="search" placeholder="Role, company or keyword"></label>
+      <label>Location<select id="location"><option value="">All locations</option></select></label>
+      <label>Source<select id="source"><option value="">All sources</option></select></label>
+      <label>Stage<select id="stage"><option value="">All stages</option></select></label>
+    </div>
+    <div class="table-scroll"><table><thead><tr><th scope="col">Role / Company</th><th scope="col">Location</th><th scope="col">Source</th><th scope="col">Stage</th><th scope="col">Details</th></tr></thead><tbody id="rows"></tbody></table></div>
+  </section>
+  <section class="panel sources" id="sources">
+    <div class="section-heading"><h2>Sources &amp; refresh</h2><button id="reload" type="button">Reload snapshot</button></div>
+    <p id="refresh-note" role="status">Run <code>python jobs.py refresh</code> from the portal folder to fetch company vacancies, then reload the snapshot.</p>
+    <ul id="feeds"></ul>
+    <h3>Search job boards</h3>
+    <nav class="source-links" aria-label="External job searches">
+      <a href="https://www.linkedin.com/search/results/content/?keywords=chartered%20accountant%20hiring%20india" target="_blank" rel="noopener noreferrer">LinkedIn Posts</a>
+      <a href="https://www.linkedin.com/jobs/search/?keywords=chartered%20accountant&amp;location=India" target="_blank" rel="noopener noreferrer">LinkedIn Jobs</a>
+      <a href="https://in.indeed.com/jobs?q=chartered+accountant" target="_blank" rel="noopener noreferrer">Indeed</a>
+      <a href="https://www.naukri.com/chartered-accountant-jobs" target="_blank" rel="noopener noreferrer">Naukri</a>
+    </nav>
+    <p>Use Add vacancy to save a listing or post from any job board.</p>
+    <h3>Transfer your tracker</h3>
+    <p>Download your saved records on one device and import the file on another.</p>
+    <div class="source-links"><button id="export-tracker" type="button">Download tracker</button><label class="transfer-label">Import tracker<input id="import-tracker" type="file" accept=".json,application/json"></label></div>
+    <p id="transfer-status" role="status"></p>
+  </section>
+</main>
+<dialog id="add-dialog">
+  <form id="add-form">
+    <h2>Add vacancy</h2>
+    <label>Role<input name="role" required maxlength="160"></label>
+    <label>Company<input name="company" required maxlength="100"></label>
+    <label>Location<input name="location" maxlength="100"></label>
+    <label>Source<select name="source"><option>LinkedIn Posts</option><option>LinkedIn Jobs</option><option>Indeed</option><option>Naukri</option><option>Company website</option><option>Other</option></select></label>
+    <label>CA requirement from the listing <input name="caEvidence" maxlength="350" placeholder="Paste the requirement if CA is mandatory"></label>
+    <label>Listing or post URL<input name="url" type="url" required placeholder="https://"></label>
+    <p id="add-error" role="alert"></p>
+    <div class="dialog-actions"><button id="cancel-add" type="button">Cancel</button><button class="primary">Save vacancy</button></div>
+  </form>
+</dialog>
+<dialog id="job-dialog">
+  <div class="dialog-actions"><button id="close-job" type="button">Close</button></div>
+  <h2 id="job-title"></h2>
+  <dl id="job-details"></dl>
+  <div id="job-links" class="source-links"></div>
+</dialog>
+</body>
+</html>
