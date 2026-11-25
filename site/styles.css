@@ -1,4 +1,4 @@
-﻿:root{font-family:system-ui,sans-serif;color:#172b2a;background:#f1f6f5;line-height:1.5;--ink:#172b2a;--muted:#48615e;--line:#d9e5e2;--primary:#006653}
+:root{font-family:system-ui,sans-serif;color:#172b2a;background:#f1f6f5;line-height:1.5;--ink:#172b2a;--muted:#48615e;--line:#d9e5e2;--primary:#006653}
 *{box-sizing:border-box}
 body{margin:0}
 .wrap{width:min(1200px,calc(100% - 3rem));margin-inline:auto}
@@ -57,6 +57,8 @@ dd{margin:0;overflow-wrap:anywhere}
 
 #summary-title{margin-bottom:.75rem}
 .metrics{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.breakdown{margin-top:1.5rem}
+.breakdown h2{margin-bottom:.75rem}
 .summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-bottom:1.5rem}
 .summary{padding:1rem 1.25rem}
 .summary ul{list-style:none;padding:0;margin:.6rem 0 0;max-height:18rem;overflow:auto}
@@ -64,8 +66,24 @@ dd{margin:0;overflow-wrap:anywhere}
 .filters{grid-template-columns:1fr 1.5fr repeat(3,minmax(0,1fr))}
 .transfer-label{display:flex;align-items:center;flex-wrap:wrap}
 @media(max-width:720px){
+  main{padding-block:1rem 2rem}
+  .top-inner{min-height:56px}
+  .intro{gap:.65rem;margin-bottom:1rem}
+  .intro h1{font-size:2rem;margin:.25rem 0 .35rem}
+  .intro p:not(.eyebrow){line-height:1.35}
+  #summary-title,.breakdown h2{font-size:1.15rem;margin-bottom:.5rem}
+  .metrics{grid-template-columns:repeat(6,minmax(0,1fr));gap:.4rem;margin-bottom:.85rem}
+  .metrics div{grid-column:span 2;display:flex;flex-direction:column;justify-content:space-between;padding:.45rem .5rem}
+  .metrics div:nth-child(-n+2){grid-column:span 3}
+  .metrics span{font-size:.875rem;line-height:1.2}
+  .metrics strong{font-size:1.45rem}
   .summary-grid{grid-template-columns:1fr}
-  .filters{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .section-heading,.filters{padding:.6rem .75rem}
+  .filters{grid-template-columns:repeat(6,minmax(0,1fr));gap:.4rem}
+  .filters label{grid-column:span 2}
+  .filters label:nth-child(-n+2){grid-column:span 3}
+  .filters input,.filters select{font-size:1rem;width:100%;text-overflow:ellipsis}
+  .transfer-label input{max-width:100%}
   .table-scroll table,.table-scroll tbody,.table-scroll tr{display:block;min-width:0}
   .table-scroll thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
   .table-scroll tbody tr{padding:.6rem .9rem;border-top:1px solid var(--line)}
