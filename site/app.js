@@ -43,7 +43,7 @@ function jobs() {
     .filter((job) => {
       const url = urlKey(job.url);
       if (!url) return true;
-      if (urls.has(url)) return false;
+      if (urls.has(url) && !job.id.startsWith("workbook:")) return false;
       urls.add(url);
       return true;
     })
@@ -266,9 +266,9 @@ $("import-tracker").addEventListener("change", async (event) => {
 });
 
 for (const feed of snapshot.status) {
-  const checked = feed.checked ? " Â· Last successful refresh " + new Date(feed.checked).toLocaleString() : "";
-  const status = feed.ok ? feed.count + " matches" : "Refresh failed Â· " + feed.count + " cached matches";
-  $("feeds").append(element("li", feed.label + " Â· " + status + checked));
+  const checked = feed.checked ? " Ã‚Â· Last successful refresh " + new Date(feed.checked).toLocaleString() : "";
+  const status = feed.ok ? feed.count + " matches" : "Refresh failed Ã‚Â· " + feed.count + " cached matches";
+  $("feeds").append(element("li", feed.label + " Ã‚Â· " + status + checked));
 }
 render();
 
