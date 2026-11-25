@@ -9,7 +9,6 @@ on:
 
 permissions:
   contents: read
-  actions: read
   pages: write
   id-token: write
 
@@ -18,12 +17,9 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
@@ -46,19 +42,16 @@ jobs:
           mkdir public
           cp site/index.html site/app.js site/styles.css site/vacancies.js public/
           printf "window.workbookJobs = [];\n" > public/workbook.js
-      - uses: actions/upload-pages-artifact@v4
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: public
-      - name: Wait for Pages artifact registration
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          for attempt in {1..10}; do
-            if [ "$(gh api repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts --jq '[.artifacts[] | select(.name == "github-pages" and .expired == false)] | length')" -gt 0 ]; then
-              exit 0
-            fi
-            sleep 3
-          done
-          exit 1
-      - uses: actions/deploy-pages@v4
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v5
         id: deployment
